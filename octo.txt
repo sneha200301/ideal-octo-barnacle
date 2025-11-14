@@ -151,25 +151,30 @@ docker push beereddy2004/demo:local
 mkdir .github/workflows/main.yml
 name: Docker Build & Push
 
-
 on: [push]
 
-
 jobs:
-build:
-runs-on: ubuntu-latest steps:
-- uses: actions/checkout@v4
-- uses: docker/login-action@v3 with:
-username: ${{ secrets.DOCKERHUB_USERNAME }} password: ${{ secrets.DOCKERHUB_TOKEN }}
-- uses: docker/build-push-action@v6
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
 
-with:
-push: true
-tags: beereddy2004/demo:latest
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: snehatheertha/demo:latest
+
 Initialize git and commit
 git init git add .
 git commit -m "initial commit" git branch -M main
-git remote add origin https://github.com/beereddy2004/demo.git git push -u origin main
+git remote add origin https://github.com/snehatheertha/demo.git git push -u origin main
 Step 9 — Add GitHub Secrets
 Go to:
 GitHub ? demo repo ? Settings ? Secrets ? Actions
@@ -306,5 +311,6 @@ kubectl get all
 Access the App
 
 minikube service flask-svc --url
+
 
 
